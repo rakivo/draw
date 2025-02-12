@@ -1,7 +1,4 @@
 #include <array>
-#include <vector>
-#include <stdio.h>
-#include <string.h>
 #include <raylib.h>
 #include <raymath.h>
 
@@ -154,10 +151,7 @@ static Camera2D camera = {
 
 static inline void stop_color_selector_mode(void)
 {
-  memset(&color_selector_entered_position,
-         F32_UNINITIALIZED,
-         sizeof(color_selector_entered_position));
-
+	color_selector_entered_position = {F32_UNINITIALIZED};
   color_selector_mode = false;
 }
 
