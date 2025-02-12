@@ -1,0 +1,21 @@
+builddir = build
+
+cxx = c++
+std = -std=gnu++20 # designated initializers
+wflags = -Wno-missing-field-initializers
+cflags = $std $wflags $iflags -Wall -Wextra -Wpedantic
+iflags = -Ithirdparty/raylib/include
+
+rule cxx
+  depfile = $out.d
+  command = $cxx $cflags -MD -MF $out.d -o $out -c $in
+
+rule link
+  command = $cxx $cflags -o $out $in $libs $libpaths
+
+build $builddir/draw.o: cxx draw.cpp
+build $builddir/draw: link $builddir/draw.o
+  libs = -l:'libraylib.a'
+  libpaths = -Lthirdparty/raylib/lib
+
+default $builddir/draw
